@@ -3,10 +3,10 @@ import React from 'react'
 import { Grid } from '@material-ui/core'
 //importing components
 import Note from './Note'
-//connecting to redux store
+//connecting to store
 import { connect } from 'react-redux'
 
-function NoteList({ notes }) {
+function SortedNoteList({ notes }) {
   console.log('NoteList is called')
   return (
     <Grid container alignItems="center">
@@ -25,11 +25,10 @@ function NoteList({ notes }) {
     </Grid>
   )
 }
-
 const mapStateToProps = (state) => {
   return {
     notes: state.notes.notes,
   }
 }
 
-export default connect(mapStateToProps, null)(NoteList)
+export default connect(mapStateToProps, null)(SortedNoteList)

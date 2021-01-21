@@ -4,6 +4,7 @@ const noteActionTypes = {
   UPDATE_NOTE: 'UPDATE_NOTE',
   DELETE_NOTE: 'DELETE_NOTE',
   SORT_NOTE: 'SORT_NOTE',
+  SORT_NOTE_BY_OLDEST: 'SORT_NOTE_BY_OLDEST',
 }
 
 export default noteActionTypes

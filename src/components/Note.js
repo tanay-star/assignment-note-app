@@ -7,8 +7,8 @@ import {
   Typography,
   makeStyles,
 } from '@material-ui/core'
-import DeleteOutlineTwoToneIcon from '@material-ui/icons/DeleteOutlineTwoTone'
-import EditTwoToneIcon from '@material-ui/icons/EditTwoTone'
+import DeleteIcon from '@material-ui/icons/Delete'
+import EditIcon from '@material-ui/icons/Edit'
 //importing actions
 import { deleteNote } from '../redux/note/note-actions'
 import { editNote } from '../redux/note/note-actions'
@@ -51,14 +51,8 @@ function Note({ id, title, body, date, deleteNote, editNote }) {
       </CardContent>
 
       <CardActions>
-        <DeleteOutlineTwoToneIcon
-          color="secondary"
-          onClick={() => deleteNote(id)}
-        />
-        <EditTwoToneIcon
-          color="primary"
-          onClick={() => editNote(id, title, body)}
-        />
+        <DeleteIcon color="primary" onClick={() => deleteNote(id)} />
+        <EditIcon color="primary" onClick={() => editNote(id, title, body)} />
       </CardActions>
     </Card>
   )

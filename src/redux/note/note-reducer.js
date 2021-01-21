@@ -1,9 +1,12 @@
 import noteActionTypes from './note-types'
+//importing utility functions
+import { funcToSortNotes, funcToSortByOldest } from './note-utils'
 
 const initial_state = {
   notes: [],
   noteToEdit: {},
   editing: false,
+  sorting: false,
 }
 
 const noteReducer = (state = initial_state, action) => {
@@ -34,27 +37,26 @@ const noteReducer = (state = initial_state, action) => {
       }
 
     case noteActionTypes.DELETE_NOTE:
+      console.log('before deleting notes:', state.notes)
       let newNotes2 = state.notes.filter((note) => note.id !== action.payload)
       return {
         ...state,
         notes: newNotes2,
       }
 
-    // case noteActionTypes.SORT_NOTE:
-    //   let sort = action.payload
-    //   let sortedNotes = state.notes.sort((a, b) => {
-    //     if (sort === 'Newest') {
-    //       return b.id - a.id
-    //     } else if (sort === 'Oldest') {
-    //       return a.id - b.id
-    //     } else {
-    //       return state.notes
-    //     }
-    //   })
-    //   return {
-    //     ...state,
-    //     notes: sortedNotes,
-    //   }
+    case noteActionTypes.SORT_NOTE:
+      return {
+        ...state,
+        sorting: true,
+        notes: funcToSortNotes(state.notes, action.payload),
+      }
+
+    case noteActionTypes.SORT_NOTE_BY_OLDEST:
+      return {
+        ...state,
+        sorting: false,
+        notes: funcToSortByOldest(state.notes, action.payload),
+      }
 
     default:
       return state

@@ -3,14 +3,15 @@ import './App.css'
 import TextArea from './components/TextArea/TextArea'
 import NoteList from './components/NoteList'
 import EditForm from './components/EditForm/EditForm'
+import SortedNoteList from './components/SortedNoteList'
 //connecting to redux store
 import { connect } from 'react-redux'
 
-function App({ editing }) {
+function App({ editing, sorting }) {
   return (
     <div className="App">
       {editing ? <EditForm /> : <TextArea />}
-      <NoteList />
+      {sorting ? <SortedNoteList /> : <NoteList />}
     </div>
   )
 }
@@ -18,6 +19,7 @@ function App({ editing }) {
 const mapStateToProps = (state) => {
   return {
     editing: state.notes.editing,
+    sorting: state.notes.sorting,
   }
 }
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './TextArea.css'
 //importing mui components
 import Fab from '@material-ui/core/Fab'
+import Button from '@material-ui/core/Button'
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
@@ -12,7 +13,11 @@ import { makeStyles } from '@material-ui/core/styles'
 //connecting to redux store
 import { connect } from 'react-redux'
 //importing actions
-import { addNote, sortNote } from '../../redux/note/note-actions'
+import {
+  addNote,
+  sortNote,
+  sortNoteByOldest,
+} from '../../redux/note/note-actions'
 
 import AddIcon from '@material-ui/icons/Add'
 
@@ -24,9 +29,12 @@ const useStyles = makeStyles((theme) => ({
     bottom: '-18px',
     color: '#fff',
   },
+  button: {
+    margin: theme.spacing(2),
+  },
 }))
 
-const TextArea = ({ addNote, sortNote }) => {
+const TextArea = ({ addNote, sortNote, sortNoteByOldest }) => {
   const [note, setNote] = useState({
     id: 0,
     title: '',
@@ -83,7 +91,7 @@ const TextArea = ({ addNote, sortNote }) => {
             disableFuture
             openTo="year"
             format="dd/MM/yyyy"
-            label="Date of birth"
+            label="Date"
             views={['year', 'month', 'date']}
             name="date"
             value={note.date}
@@ -103,21 +111,23 @@ const TextArea = ({ addNote, sortNote }) => {
         </Fab>
       </form>
 
-      <select defaultValue="Sort" onChange={handleSort}>
-        <option disabled value="Sort">
-          Sort
-        </option>
-        <option value="Newest">Newest</option>
-        <option value="Oldest">Oldest</option>
-      </select>
+      <Button
+        variant="contained"
+        className={classes.button}
+        color="primary"
+        onClick={() => sortNote('Newest')}
+      >
+        Newest
+      </Button>
 
-      <select defaultValue="Sort">
-        <option disabled value="Sort">
-          Sort
-        </option>
-        <option value="Newest">Newest</option>
-        <option value="Oldest">Oldest</option>
-      </select>
+      <Button
+        variant="contained"
+        className={classes.button}
+        onClick={() => sortNoteByOldest('Oldest')}
+        color="primary"
+      >
+        Oldest
+      </Button>
     </div>
   )
 }
@@ -125,7 +135,8 @@ const TextArea = ({ addNote, sortNote }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addNote: (note) => dispatch(addNote(note)),
-    sortNote: (sortValue) => dispatch(sortNote(sortValue)),
+    sortNote: (sort) => dispatch(sortNote(sort)),
+    sortNoteByOldest: (sort) => dispatch(sortNoteByOldest(sort)),
   }
 }
 

@@ -28,9 +28,16 @@ export const updateNote = (newNote) => {
   }
 }
 
-export const sortNote = (sortValue) => {
+export const sortNote = (sort) => {
   return {
     type: noteActionTypes.SORT_NOTE,
-    payload: sortValue,
+    payload: sort,
+  }
+}
+
+export const sortNoteByOldest = (sort) => {
+  return {
+    type: noteActionTypes.SORT_NOTE_BY_OLDEST,
+    payload: sort,
   }
 }
